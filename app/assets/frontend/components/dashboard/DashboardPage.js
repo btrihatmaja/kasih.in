@@ -1,16 +1,51 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dashboardActions from '../../actions/dashboardActions';
 import { Grid, Row, Col } from 'react-flexbox-grid/lib/index';
 import Divider from 'material-ui/Divider';
-import { List, ListItem } from 'material-ui/List';
+import { List, ListItem, makeSelectable } from 'material-ui/List';
 import AboutPage from '../about/AboutPage';
 import DialogPage from '../dialog/DialogPage';
-import HelpPage from '../help/HelpPage';
 import MessagesPage from '../messages/MessagesPage';
-import ProjectsPage from '../projects/ProjectsPage';
 import SupportPage from '../support/SupportPage';
+import HomeTabs from './presentation/HomeTabs';
+
+let SelectableList = makeSelectable(List);
+
+function wrapState(ComposedComponent) {
+  return class SelectableList extends Component {
+    static propTypes = {
+      children: PropTypes.node.isRequired,
+      defaultValue: PropTypes.number.isRequired,
+    };
+
+    componentWillMount() {
+      this.setState({
+        selectedIndex: this.props.defaultValue,
+      });
+    }
+
+    handleRequestChange = (event, index) => {
+      this.setState({
+        selectedIndex: index,
+      });
+    };
+
+    render() {
+      return (
+        <ComposedComponent
+          value={this.state.selectedIndex}
+          onChange={this.handleRequestChange}
+        >
+          {this.props.children}
+        </ComposedComponent>
+      );
+    }
+  };
+}
+
+SelectableList = wrapState(SelectableList);
 
 class DashboardPage extends React.Component {
   constructor(props) {
@@ -21,18 +56,16 @@ class DashboardPage extends React.Component {
 
   showPage(page) {
     switch (page) {
-      case 'feeds':
-        return <HelpPage />;
+      case 'home':
+        return <HomeTabs />;
       case 'messages':
         return <MessagesPage />;
-      case 'projects':
-        return <ProjectsPage />;
       case 'support':
         return <SupportPage />;
       case 'about':
         return <AboutPage />;
       default:
-        return <DialogPage />;
+        return <HomeTabs />;
     }
   }
   handleClick(page) {
@@ -44,32 +77,32 @@ class DashboardPage extends React.Component {
       <div>
         <Grid fluid>
           <Row>
-            <Col xs={3} sm={3} md={2} lg={2} >
-              <List>
+            <Col xs={3} sm={3} md={3} lg={2} >
+              <SelectableList defaultValue={1}>
                 <ListItem
-                  primaryText="Feeds"
-                  onClick={() => this.handleClick("feeds")} />
-                <ListItem
-                  primaryText="Charity Project"
-                   />
-                <ListItem
-                  primaryText="Inbox"
-                   />
-              </List>
-              <Divider />
-              <List>
-                <ListItem primaryText="Support" />
-                <ListItem
-                  primaryText="About"
-                  onClick={() => this.handleClick('about')} />
-              </List>
+                  value={1}
+                  primaryText="Home"
+                  onClick={() => this.handleClick('home')}
+                  />
+                  <ListItem
+                    value={2}
+                    primaryText="Messages"
+                    onClick={() => this.handleClick('messages')}
+                    />
+                  <Divider />
+                  <ListItem primaryText="Support" value={3}/>
+                  <ListItem
+                    value={4}
+                    primaryText="About"
+                    onClick={() => this.handleClick('about')} />
+              </SelectableList>
             </Col>
-            <Col xs={6} sm={6} md={6} lg={7}>
+            <Col xs={8} sm={8} md={8} lg={9}>
+              <DialogPage />
               {
                 this.showPage(page)
               }
             </Col>
-            <Col xs={3} sm={3} md={4} lg={3}>Test2</Col>
           </Row>
         </Grid>
       </div>

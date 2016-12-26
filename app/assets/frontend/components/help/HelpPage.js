@@ -12,7 +12,7 @@ function loadData(props) {
 }
 
 class HelpPage extends React.Component {
-
+  
   componentDidMount() {
     loadData(this.props);
   }
@@ -29,7 +29,6 @@ class HelpPage extends React.Component {
     return (
       <div>
         <div className="container">
-          <HelpForm />
             {
               isFetching ?
                 <div style={styles.circularProgress}>

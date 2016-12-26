@@ -8,6 +8,7 @@ import DashboardPage from './components/dashboard/DashboardPage';
 import HomePage from './components/home/HomePage';
 import HelpPage from './components/help/HelpPage';
 import LoginPage from './components/users/LoginPage.js';
+import MessagesPage from './components/messages/MessagesPage';
 import HelpForm from './components/common/help/HelpForm.js';
 
 const Routes = (props) => {
@@ -25,6 +26,7 @@ const Routes = (props) => {
           <Route path="about" component={AboutPage} />
           <Route path="login" component={LoginPage} />
           <Route path="dashboard" component={DashboardPage} />
+          <Route path="messages" component={MessagesPage} />
           <Route onEnter={checkAuth}>
 
             <Route path="help" component={HelpPage} />

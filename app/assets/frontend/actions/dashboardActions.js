@@ -9,15 +9,15 @@ export function pageSwitcher(page = '') {
         page,
       };
       break;
-    case 'messages':
+    case 'home':
       payload = {
-        type: types.SHOW_INBOX,
+        type: types.SHOW_HOME,
         page,
       };
       break;
-    case 'projects':
+    case 'messages':
       payload = {
-        type: types.SHOW_PROJECTS,
+        type: types.SHOW_MESSAGES,
         page,
       };
       break;
@@ -39,6 +39,6 @@ export function pageSwitcher(page = '') {
         page,
       };
   }
-  
+
   return payload;
 }

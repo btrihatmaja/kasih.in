@@ -6,12 +6,14 @@ import {
   descriptionFieldFlow,
   saveLocationFieldFlow,
   discardLocationFieldFlow } from './helpSaga.js';
+import { retrieveMessagesFlow } from './messagesSaga';
 
 export default function* root() {
   yield [
     fork(helpFeedsFlow),
     fork(helpSubmitFlow),
     fork(loginFlow),
+    fork(retrieveMessagesFlow),
     fork(descriptionFieldFlow),
     fork(saveLocationFieldFlow),
     fork(discardLocationFieldFlow),

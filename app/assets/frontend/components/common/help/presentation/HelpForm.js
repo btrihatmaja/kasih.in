@@ -9,18 +9,19 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
+import AutoComplete from 'material-ui/AutoComplete';
+import Chip from 'material-ui/Chip';
 import SubjectIcon from 'material-ui/svg-icons/action/subject';
 import AddLocationIcon from 'material-ui/svg-icons/maps/add-location';
 import EditLocationIcon from 'material-ui/svg-icons/maps/edit-location';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { reduxForm, getValues, change } from 'redux-form';
+import { reduxForm, Field, change } from 'redux-form';
 import HelpDescriptionModal from './HelpDescriptionModal';
 import HelpLocationModal from './HelpLocationModal';
 import isEmpty from 'lodash/isEmpty';
 import { cyan500 } from 'material-ui/styles/colors';
 import {
-  cancelDescriptionModal,
   centerChanged,
   discardLocation,
   helpSubmit,
@@ -41,22 +42,16 @@ const geolocation = (
   }
 );
 
-export const fields = [
-  'name',
-  'message',
-  'description',
-  'photos',
-  'latitude',
-  'longitude',
-];
-
 const styles = {
   root: {
     paddingLeft: 40,
     width: '99%',
   },
+  textarea: {
+    width: '100%',
+  },
   textField: {
-    width: '90%',
+    width: '100%',
   },
 };
 
@@ -68,6 +63,71 @@ const submit = (values, dispatch) => {
     dispatch(helpSubmit({ submitValues, resolve, reject }));
   });
 };
+
+const goods = [
+  'Food',
+  'Service',
+  'Money',
+  'Clothes',
+  'Books',
+];
+
+const category = [
+  'Education',
+  'Food',
+  'Sports',
+  'Medics',
+  'Events',
+  'Home',
+];
+
+const renderTitleField = ({ input, label }) => (
+  <div>
+    <TextField
+      floatingLabelText={label}
+      style={styles.textField}
+      hintText="I want to help ..."
+      {...input}
+    />
+  </div>
+);
+
+const renderDescriptionField = ({ input, label }) => (
+  <div>
+    <TextField
+      floatingLabelText={label}
+      multiLine
+      hintText="Shortly describe what you want to help"
+      style={styles.textarea}
+      inputStyle={styles.textarea}
+      {...input}
+    />
+  </div>
+);
+
+const renderGoodsAutoComplete = ({ input, label }) => (
+    <AutoComplete
+      floatingLabelText={label}
+      filter={AutoComplete.fuzzyFilter}
+      dataSource={goods}
+      style={{ paddingRight: 10 }}
+      hintText="What could you help with"
+      maxSearchResults={5}
+      {...input}
+    />
+);
+
+const renderCategoryAutoComplete = ({ input, label }) => (
+    <AutoComplete
+      floatingLabelText={label}
+      filter={AutoComplete.caseInsensitiveFilter}
+      dataSource={category}
+      style={{ paddingLeft: 10 }}
+      hintText="Category of help"
+      maxSearchResults={5}
+      {...input}
+    />
+);
 
 class HelpForm extends React.Component {
   constructor(props) {
@@ -89,10 +149,6 @@ class HelpForm extends React.Component {
         lng: position.coords.longitude,
       }));
     });
-  }
-
-  handleDescriptionOpen() {
-    this.props.dispatch(showDescriptionModal());
   }
 
   handleLocationOpen() {
@@ -120,17 +176,12 @@ class HelpForm extends React.Component {
 
   render() {
     const {
-      fields: { name, message, description, latitude, longitude },
       handleSubmit,
-      resetForm,
       submitting,
       formValues,
-      descriptionModalIsOpened,
-      hideDescriptionModalAction,
       hideLocationModalAction,
       locationModalIsOpened,
       locationSaved,
-      cancelDescriptionModalAction,
       center,
       marker,
     } = this.props;
@@ -140,55 +191,30 @@ class HelpForm extends React.Component {
         <h1 className="center">What can you help today?</h1>
         <form onSubmit={handleSubmit(submit.bind(this))}>
           <div>
-            <TextField
-              style={styles.textField}
-              errorText={message.touched && message.error}
-              {...message}
-              hintText="I want to help ..." />
+            <Field name="title" component={renderTitleField} label="Title" />
+            <Field name="description" component={renderDescriptionField} label="Description" />
+            <Field name="goods" component={renderGoodsAutoComplete} label="Goods" />
+            <Field name="category" component={renderCategoryAutoComplete} label="Category" />
+            <div>
+              <RaisedButton
+                type="submit"
+                primary
+                label="POST"
+                icon={<FontIcon className="material-icons">send</FontIcon>}
+              />
+              <IconButton
+                tooltip="Location"
+                onClick={() => this.handleLocationOpen()}
+                disabled={submitting}
+                >
+                {
+                  locationSaved ?
+                    <EditLocationIcon color={cyan500} /> :
+                    <AddLocationIcon />
+                }
+              </IconButton>
+            </div>
           </div>
-          <div>
-            <RaisedButton
-              type="submit"
-              primary
-              disabled={
-                isEmpty(formValues) ||
-                !formValues.hasOwnProperty('message') ||
-                formValues.message === "" ||
-                submitting
-              }
-              label="POST"
-              icon={<FontIcon className="material-icons">send</FontIcon>} />
-            <IconButton
-              tooltip="Description"
-              onClick={() => this.handleDescriptionOpen()}
-              disabled={submitting}
-              >
-              <SubjectIcon
-                color={
-                  !isEmpty(formValues) &&
-                  formValues.hasOwnProperty('description') &&
-                  formValues.description !== "" ?
-                  cyan500 : ''} />
-            </IconButton>
-            <IconButton
-              tooltip="Location"
-              onClick={() => this.handleLocationOpen()}
-              disabled={submitting}
-              >
-              {
-                locationSaved ?
-                  <EditLocationIcon color={cyan500} /> :
-                  <AddLocationIcon />
-              }
-            </IconButton>
-
-          </div>
-          <HelpDescriptionModal
-            descriptionModalIsOpened={descriptionModalIsOpened}
-            hideDescriptionModalAction={hideDescriptionModalAction}
-            cancelDescriptionModalAction={cancelDescriptionModalAction}
-            description={description}
-            />
           <HelpLocationModal
             locationModalIsOpened={locationModalIsOpened}
             hideLocationModalAction={hideLocationModalAction}
@@ -206,27 +232,20 @@ class HelpForm extends React.Component {
 
 HelpForm.propTypes = {
   actions: PropTypes.object.isRequired,
-  cancelDescriptionModalAction: PropTypes.func.isRequired,
   center: PropTypes.object,
-  descriptionModalIsOpened: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
-  fields: PropTypes.object.isRequired,
   formValues: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
-  hideDescriptionModalAction: PropTypes.func.isRequired,
   hideLocationModalAction: PropTypes.func.isRequired,
   locationModalIsOpened: PropTypes.bool.isRequired,
   locationSaved: PropTypes.bool.isRequired,
   marker: PropTypes.object,
-  resetForm: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     center: state.help.center,
-    descriptionModalIsOpened: state.help.descriptionModalIsOpened,
-    formValues: getValues(state.form.help),
     locationModalIsOpened: state.help.locationModalIsOpened,
     locationSaved: state.help.locationSaved,
     marker: state.help.marker,
@@ -236,8 +255,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    cancelDescriptionModalAction: bindActionCreators(cancelDescriptionModal, dispatch),
-    hideDescriptionModalAction: bindActionCreators(hideDescriptionModal, dispatch),
     hideLocationModalAction: bindActionCreators(hideLocationModal, dispatch),
   };
 }
@@ -253,7 +270,6 @@ const validate = (values) => {
 
 const helpForm = reduxForm({
   form: 'help',
-  fields,
   validate,
 })(HelpForm);
 
