@@ -5,7 +5,7 @@ import help from './helpReducer';
 import helps from './helpsReducer';
 import messages from './messagesReducer';
 import user from './userReducer';
-
+import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
   dashboard,
@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
   messages,
   user,
   form: formReducer,
+  routing: routerReducer,
 });
 
 export default rootReducer;

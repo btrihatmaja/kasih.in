@@ -1,4 +1,4 @@
-import * as types from '../actions/actionTypes';
+import * as types from '../constants/actionTypes';
 import { takeEvery, takeLatest } from 'redux-saga';
 import { take, put, call, fork, select } from 'redux-saga/effects';
 import { forwardTo } from '../utils/auth';

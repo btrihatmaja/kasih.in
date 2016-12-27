@@ -1,44 +1,51 @@
-import * as types from './actionTypes';
+import * as types from '../constants/actionTypes';
+import * as sidebarIndexTypes from '../constants/sidebarIndexTypes';
 
-export function pageSwitcher(page = '') {
+export function pageSwitcher(index = sidebarIndexTypes.HOME) {
   let payload = {};
-  switch (page) {
-    case 'feeds':
-      payload = {
-        type: types.SHOW_HELPS_FEED,
-        page,
-      };
-      break;
-    case 'home':
+  switch (index) {
+    case sidebarIndexTypes.HOME:
       payload = {
         type: types.SHOW_HOME,
-        page,
+        sidebarIndex: index,
+        slug: 'home',
       };
       break;
-    case 'messages':
+    case sidebarIndexTypes.MESSAGES:
       payload = {
         type: types.SHOW_MESSAGES,
-        page,
+        sidebarIndex: index,
+        slug: 'messages',
       };
       break;
-    case 'support':
+    case sidebarIndexTypes.SUPPORT:
       payload = {
         type: types.SHOW_SUPPORT,
-        page,
+        sidebarIndex: index,
+        slug: 'support',
       };
       break;
-    case 'about':
+    case sidebarIndexTypes.ABOUT:
       payload = {
         type: types.SHOW_ABOUT,
-        page,
+        sidebarIndex: index,
+        slug: 'about',
       };
       break;
     default:
       payload = {
         type: '',
-        page,
+        sidebarIndex: index,
       };
   }
 
   return payload;
+}
+
+export function changeDashboardTab(sidebarIndex) {
+  return { type: types.DASHBOARD_TAB_CHANGED, sidebarIndex };
+}
+
+export function changeDashboardSidebar(sidebarIndex) {
+  return { type: types.DASHBOARD_SIDEBAR_CHANGED, sidebarIndex };
 }

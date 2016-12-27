@@ -7,6 +7,7 @@ import {
   saveLocationFieldFlow,
   discardLocationFieldFlow } from './helpSaga.js';
 import { retrieveMessagesFlow } from './messagesSaga';
+import { dashboardMessagesFlow, dashboardHomeFlow, updateSidebarFromURL } from './dashboardSaga';
 
 export default function* root() {
   yield [
@@ -17,5 +18,8 @@ export default function* root() {
     fork(descriptionFieldFlow),
     fork(saveLocationFieldFlow),
     fork(discardLocationFieldFlow),
+    fork(dashboardMessagesFlow),
+    fork(dashboardHomeFlow),
+    fork(updateSidebarFromURL),
   ];
 }

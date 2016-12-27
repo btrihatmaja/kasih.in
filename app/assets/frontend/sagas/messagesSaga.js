@@ -1,4 +1,4 @@
-import * as types from '../actions/actionTypes';
+import * as types from '../constants/actionTypes';
 import * as messagesActions from '../actions/messagesActions';
 import { api } from '../api/messagesApi';
 import { takeEvery, takeLatest } from 'redux-saga';

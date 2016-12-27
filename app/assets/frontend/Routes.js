@@ -5,32 +5,38 @@ import * as auth from './utils/auth';
 import AboutPage from './components/about/AboutPage';
 import App from './components/App';
 import DashboardPage from './components/dashboard/DashboardPage';
+import HomeTabs from './components/dashboard/presentation/HomeTabs';
 import HomePage from './components/home/HomePage';
 import HelpPage from './components/help/HelpPage';
-import LoginPage from './components/users/LoginPage.js';
+import LoginPage from './components/users/LoginPage';
 import MessagesPage from './components/messages/MessagesPage';
-import HelpForm from './components/common/help/HelpForm.js';
+import HelpForm from './components/common/help/HelpForm';
+import { changeDashboardTab, changeDashboardSidebar } from './actions/dashboardActions'
+import { syncHistoryWithStore } from 'react-router-redux';
+import * as sidebarIndexTypes from './constants/sidebarIndexTypes';
 
 const Routes = (props) => {
   const { store } = props;
-
+  const history = syncHistoryWithStore(browserHistory, store)
   const checkAuth = (nextState, replace) => {
     const { user } = store.getState();
     auth.checkAuth(nextState, replace, user.loggedIn);
   };
   return (
     <Provider store={store}>
-      <Router history={browserHistory}>
+      <Router history={history}>
         <Route component={App}>
           <Route path="/" component={HomePage} />
           <Route path="about" component={AboutPage} />
           <Route path="login" component={LoginPage} />
-          <Route path="dashboard" component={DashboardPage} />
-          <Route path="messages" component={MessagesPage} />
-          <Route onEnter={checkAuth}>
+          <Route path="dashboard" component={DashboardPage}>
+            <Route path="home" component={HomeTabs} onEnter={() => { store.dispatch(changeDashboardSidebar(sidebarIndexTypes.HOME)) }} />
+            <Route path="messages" component={MessagesPage} onEnter={() => { store.dispatch(changeDashboardSidebar(sidebarIndexTypes.MESSAGES)) }} />
+            <Route path="help/new" component={HelpForm} onEnter={() => { store.dispatch(changeDashboardTab(0)) }} />
+            <Route path="help" component={HelpPage} onEnter={() => { store.dispatch(changeDashboardTab(1)) }} />
+          </Route>
 
-            <Route path="help" component={HelpPage} />
-            <Route path="help/new" component={HelpForm} />
+          <Route onEnter={checkAuth}>
           </Route>
         </Route>
       </Router>

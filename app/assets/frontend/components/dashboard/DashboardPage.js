@@ -10,6 +10,7 @@ import DialogPage from '../dialog/DialogPage';
 import MessagesPage from '../messages/MessagesPage';
 import SupportPage from '../support/SupportPage';
 import HomeTabs from './presentation/HomeTabs';
+import * as sidebarIndexTypes from '../../constants/sidebarIndexTypes';
 
 let SelectableList = makeSelectable(List);
 
@@ -50,57 +51,63 @@ SelectableList = wrapState(SelectableList);
 class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
+    const dispatch = this.props;
     this.handleClick = this.handleClick.bind(this);
     this.showPage = this.showPage.bind(this);
   }
 
-  showPage(page) {
-    switch (page) {
-      case 'home':
+  showPage(index) {
+    switch (index) {
+      case sidebarIndexTypes.HOME:
         return <HomeTabs />;
-      case 'messages':
+      case sidebarIndexTypes.MESSAGES:
         return <MessagesPage />;
-      case 'support':
+      case sidebarIndexTypes.SUPPORT:
         return <SupportPage />;
-      case 'about':
+      case sidebarIndexTypes.ABOUT:
         return <AboutPage />;
       default:
         return <HomeTabs />;
     }
   }
-  handleClick(page) {
-    this.props.pageSwitcher(page);
+  handleClick(index) {
+    this.props.pageSwitcher(index);
   }
   render() {
-    const { page, pageSwitcher } = this.props;
+    const {
+      sidebarIndex,
+      pageSwitcher,
+      changeDashboardSidebar,
+      changeDashboardTab,
+    } = this.props;
     return (
       <div>
         <Grid fluid>
           <Row>
             <Col xs={3} sm={3} md={3} lg={2} >
-              <SelectableList defaultValue={1}>
+              <SelectableList defaultValue={sidebarIndex}>
                 <ListItem
-                  value={1}
+                  value={sidebarIndexTypes.HOME}
                   primaryText="Home"
-                  onClick={() => this.handleClick('home')}
+                  onClick={() => this.handleClick(sidebarIndexTypes.HOME)}
                   />
                   <ListItem
-                    value={2}
+                    value={sidebarIndexTypes.MESSAGES}
                     primaryText="Messages"
-                    onClick={() => this.handleClick('messages')}
+                    onClick={() => this.handleClick(sidebarIndexTypes.MESSAGES)}
                     />
                   <Divider />
-                  <ListItem primaryText="Support" value={3}/>
+                  <ListItem primaryText="Support" value={sidebarIndexTypes.SUPPORT}/>
                   <ListItem
-                    value={4}
+                    value={sidebarIndexTypes.ABOUT}
                     primaryText="About"
-                    onClick={() => this.handleClick('about')} />
+                    onClick={() => this.handleClick(sidebarIndexTypes.ABOUT)} />
               </SelectableList>
             </Col>
             <Col xs={8} sm={8} md={8} lg={9}>
               <DialogPage />
               {
-                this.showPage(page)
+                this.showPage(sidebarIndex)
               }
             </Col>
           </Row>
@@ -112,19 +119,23 @@ class DashboardPage extends React.Component {
 
 
 DashboardPage.propTypes = {
-  page: PropTypes.string,
+  sidebarIndex: PropTypes.number,
   pageSwitcher: PropTypes.func.isRequired,
+  tabIndex: PropTypes.number,
+  sidebarIndex: PropTypes.number,
 };
 
 function mapStateToProps(state) {
   return {
-    page: state.dashboard.page,
+    sidebarIndex: state.dashboard.sidebarIndex,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     pageSwitcher: bindActionCreators(dashboardActions, dispatch).pageSwitcher,
+    changeDashboardTab: bindActionCreators(dashboardActions, dispatch).changeDashboardTab,
+    changeDashboardSidebar: bindActionCreators(dashboardActions, dispatch).changeDashboardSidebar,
   };
 }
 
