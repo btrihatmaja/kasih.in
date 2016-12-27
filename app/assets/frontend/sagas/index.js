@@ -9,10 +9,12 @@ import {
 import { retrieveMessagesFlow } from './messagesSaga';
 import { dashboardMessagesFlow, dashboardHomeFlow, updateSidebarFromURL } from './dashboardSaga';
 import { retrieveFollowingFlow } from './followingSaga';
+import { retrieveFollowerFlow } from './followerSaga';
 
 export default function* root() {
   yield [
     fork(retrieveFollowingFlow),
+    fork(retrieveFollowerFlow),
     fork(helpFeedsFlow),
     fork(helpSubmitFlow),
     fork(loginFlow),

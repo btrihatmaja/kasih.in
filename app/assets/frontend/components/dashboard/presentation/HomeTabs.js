@@ -3,6 +3,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import HelpForm from '../../common/help/HelpForm';
 import HelpPage from '../../help/HelpPage';
 import FollowingPage from '../../following/FollowingPage';
+import FollowerPage from '../../follower/FollowerPage';
 import { black, darkWhite, red500 } from 'material-ui/styles/colors';
 
 const HomeTabs = () =>
@@ -16,7 +17,7 @@ const HomeTabs = () =>
       <HelpPage />
     </Tab>
     <Tab label="Followers">
-
+      <FollowerPage />
     </Tab>
     <Tab label="Following">
       <FollowingPage />
