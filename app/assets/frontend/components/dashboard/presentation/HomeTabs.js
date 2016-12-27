@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import HelpForm from '../../common/help/HelpForm';
 import HelpPage from '../../help/HelpPage';
+import FollowingPage from '../../following/FollowingPage';
 import { black, darkWhite, red500 } from 'material-ui/styles/colors';
 
 const HomeTabs = () =>
@@ -18,7 +19,7 @@ const HomeTabs = () =>
 
     </Tab>
     <Tab label="Following">
-
+      <FollowingPage />
     </Tab>
   </Tabs>;
 
