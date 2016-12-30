@@ -10,7 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 
 const iconButtonElement = (
   <IconButton
-    touch={true}
+    touch
     tooltip="more"
     tooltipPosition="bottom-left"
   >
@@ -23,7 +23,7 @@ const rightIconMenu = (followed) =>
     <MenuItem>Message</MenuItem>
     <MenuItem>View profile</MenuItem>
     {
-      followed ? <MenuItem>Unfollow</MenuItem>  : <MenuItem>Follow</MenuItem>
+      followed ? <MenuItem>Unfollow</MenuItem> : <MenuItem>Follow</MenuItem>
     }
   </IconMenu>;
 
@@ -35,8 +35,8 @@ const FollowerList = (props) =>
     rightIconButton={rightIconMenu(props.user.followed)}
   />;
 
-  FollowerList.propTypes = {
-    user: PropTypes.object.isRequired,
-  };
+FollowerList.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
-  export default FollowerList;
+export default FollowerList;

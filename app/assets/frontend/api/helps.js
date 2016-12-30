@@ -1,6 +1,7 @@
 export default [
   {
     id: 1,
+    userId: 1,
     name: "Bagus",
     message: "I want to give an iPad 4 Mini",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -9,12 +10,14 @@ export default [
   },
   {
     id: 2,
+    userId: 2,
     name: "Prdx",
     message: "Old H&M T-Shirt White",
     description: "Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.",
   },
   {
     id: 3,
+    userId: 3,
     name: "Bagus Trihatmaja",
     message: "Free album Charli XCX - Sucker CD",
     description: "Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed.",

@@ -77,8 +77,6 @@ class DashboardPage extends React.Component {
     const {
       sidebarIndex,
       pageSwitcher,
-      changeDashboardSidebar,
-      changeDashboardTab,
     } = this.props;
     return (
       <div>
@@ -91,17 +89,20 @@ class DashboardPage extends React.Component {
                   primaryText="Home"
                   onClick={() => this.handleClick(sidebarIndexTypes.HOME)}
                   />
-                  <ListItem
-                    value={sidebarIndexTypes.MESSAGES}
-                    primaryText="Messages"
-                    onClick={() => this.handleClick(sidebarIndexTypes.MESSAGES)}
-                    />
-                  <Divider />
-                  <ListItem primaryText="Support" value={sidebarIndexTypes.SUPPORT}/>
-                  <ListItem
-                    value={sidebarIndexTypes.ABOUT}
-                    primaryText="About"
-                    onClick={() => this.handleClick(sidebarIndexTypes.ABOUT)} />
+                <ListItem
+                  value={sidebarIndexTypes.MESSAGES}
+                  primaryText="Messages"
+                  onClick={() => this.handleClick(sidebarIndexTypes.MESSAGES)}
+                  />
+                <Divider />
+                <ListItem 
+                  primaryText="Support" 
+                  value={sidebarIndexTypes.SUPPORT}
+                />
+                <ListItem
+                  value={sidebarIndexTypes.ABOUT}
+                  primaryText="About"
+                  onClick={() => this.handleClick(sidebarIndexTypes.ABOUT)} />
               </SelectableList>
             </Col>
             <Col xs={8} sm={8} md={8} lg={9}>
@@ -122,7 +123,6 @@ DashboardPage.propTypes = {
   sidebarIndex: PropTypes.number,
   pageSwitcher: PropTypes.func.isRequired,
   tabIndex: PropTypes.number,
-  sidebarIndex: PropTypes.number,
 };
 
 function mapStateToProps(state) {
@@ -134,8 +134,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     pageSwitcher: bindActionCreators(dashboardActions, dispatch).pageSwitcher,
-    changeDashboardTab: bindActionCreators(dashboardActions, dispatch).changeDashboardTab,
-    changeDashboardSidebar: bindActionCreators(dashboardActions, dispatch).changeDashboardSidebar,
   };
 }
 
