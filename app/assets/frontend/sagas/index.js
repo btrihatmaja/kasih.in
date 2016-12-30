@@ -10,6 +10,9 @@ import { retrieveMessagesFlow } from './messagesSaga';
 import { dashboardMessagesFlow, dashboardHomeFlow, updateSidebarFromURL } from './dashboardSaga';
 import { retrieveFollowingFlow } from './followingSaga';
 import { retrieveFollowerFlow } from './followerSaga';
+import {
+  profileBioFlow,
+  profileFeedsFlow } from './profileSaga';
 
 export default function* root() {
   yield [
@@ -25,5 +28,7 @@ export default function* root() {
     fork(dashboardMessagesFlow),
     fork(dashboardHomeFlow),
     fork(updateSidebarFromURL),
+    fork(profileBioFlow),
+    fork(profileFeedsFlow),
   ];
 }

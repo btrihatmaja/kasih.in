@@ -7,6 +7,7 @@ import messages from './messagesReducer';
 import following from './followingReducer';
 import follower from './followerReducer';
 import user from './userReducer';
+import profile from './profileReducer';
 import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   helps,
   messages,
   user,
+  profile,
   form: formReducer,
   routing: routerReducer,
 });
