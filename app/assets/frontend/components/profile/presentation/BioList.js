@@ -22,7 +22,7 @@ const BioList = (props) =>
       </h2>
       <Divider />
       <br />
-      <a href="mailto:${props.bio.bio.email}" target="_top">
+      <a href={`mailto:${props.bio.bio.email}`} target="_top">
         {props.bio.bio.email}
       </a>
       <p style={style.description}>
