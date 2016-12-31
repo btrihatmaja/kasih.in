@@ -1,9 +1,9 @@
 import * as types from '../constants/actionTypes';
 
-export function getProfileBio(id) {
+export function getProfileBio(username) {
   return {
     type: types.RETRIEVE_PROFILE_BIO_REQUEST,
-    id,
+    username,
   };
 }
 
@@ -23,10 +23,10 @@ export function getProfileBioFailure(error) {
 }
 
 
-export function getProfileFeeds(id) {
+export function getProfileFeeds(username) {
   return {
     type: types.RETRIEVE_PROFILE_FEEDS_REQUEST,
-    id,
+    username,
   };
 }
 
@@ -44,10 +44,10 @@ export function getProfileFeedsFailure(error) {
   };
 }
 
-export function getProfileStats(id) {
+export function getProfileStats(username) {
   return {
     type: types.RETRIEVE_PROFILE_STATS_REQUEST,
-    id,
+    username,
   };
 }
 

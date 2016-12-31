@@ -30,7 +30,7 @@ const Routes = (props) => {
           <Route path="/" component={HomePage} />
           <Route path="about" component={AboutPage} />
           <Route path="login" component={LoginPage} />
-          <Route path="profile/:userId" component={ProfilePage} />
+          <Route path="profile/:username" component={ProfilePage} />
           <Route path="dashboard" component={DashboardPage}>
             <Route 
               path="home" 

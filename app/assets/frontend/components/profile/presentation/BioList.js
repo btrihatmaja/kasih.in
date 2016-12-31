@@ -8,7 +8,7 @@ const style = {
     color: grey500,
     fontSize: 15,
   },
-  avatar: { margin: 20 },
+  avatar: { margin: 20, align: "center" },
 };
 
 const BioList = (props) =>

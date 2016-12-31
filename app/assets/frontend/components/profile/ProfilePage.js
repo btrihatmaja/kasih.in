@@ -3,15 +3,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import { Grid, Row, Col } from 'react-flexbox-grid/lib/index';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import BioList from './presentation/BioList';
 import StatsGraph from './presentation/StatsGraph';
 import FeedsList from './presentation/FeedsList';
+import { black, darkWhite, red500 } from 'material-ui/styles/colors';
 import * as profileActions from '../../actions/profileActions.js';
 
 function loadData(props) {
-  props.getProfileBio(props.params.userId);
-  props.getProfileStats(props.params.userId);
-  props.getProfileFeeds(props.params.userId);
+  props.getProfileBio(props.params.username);
+  props.getProfileStats(props.params.username);
+  props.getProfileFeeds(props.params.username);
 }
 
 class ProfilePage extends React.Component {
@@ -25,10 +27,8 @@ class ProfilePage extends React.Component {
       stats, 
     } = this.props;
     const styles = {
-      circularProgress: {
-        margin: "auto",
-        width: "10%",
-        padding: "20px",
+      tabs: {
+        padding: "10px",
       },
     };
     return (
@@ -39,9 +39,20 @@ class ProfilePage extends React.Component {
               <Col xs={3} sm={3} md={3} lg={2}>
                 <BioList bio={bio} />
               </Col>
+              <Col xs={1} sm={1} md={1} lg={1} />
               <Col xs={8} sm={8} md={8} lg={9}>
-                <StatsGraph stats={stats} />
-                <FeedsList feeds={feeds} />
+                <Tabs
+                  inkBarStyle={{ background: red500 }}
+                  tabItemContainerStyle={{ background: darkWhite, textColor: black }}
+                  style={styles.tabs}
+                >
+                  <Tab label="Overview">
+                    <StatsGraph stats={stats} />
+                  </Tab>
+                  <Tab label="Activity">
+                    <FeedsList feeds={feeds} />
+                  </Tab>
+                </Tabs>
               </Col>
             </Row>
           </Grid>

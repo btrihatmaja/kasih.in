@@ -1,20 +1,20 @@
 export default [
   {
-    id: 1,
+    username: "prdx",
     name: "Bagus Trihatmaja",
     avatar: "images/chexee-128.jpg",
     email: "bagus@gmail.com",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
-    id: 2,
+    username: "bagus",
     name: "Prdx",
     avatar: "images/chexee-128.jpg",
     email: "bagus@gmail.com",
     description: "Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.",
   },
   {
-    id: 3,
+    username: "redpanda",
     name: "Bagus Trihatmaja",
     avatar: "images/chexee-128.jpg",
     email: "bagus@gmail.com",

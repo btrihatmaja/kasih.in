@@ -1,19 +1,22 @@
 import _bio from './profile';
 import _helps from './helps';
+import collection from 'lodash/collection';
 
 const TIMEOUT = 1000;
 
 export const api = {
-  getBio(id) {
+  getBio(username) {
     // TODO: Replace this when API is ready.
-    const bio = _bio.filter(b => b.id == id);
+    const bio = collection.filter(_bio, { username });
     return new Promise(resolve => {
       setTimeout(() => resolve(bio[0]), TIMEOUT);
     });
   },
-  getFeeds() {
+  getFeeds(username) {
+    // TODO: Replace this when API is ready.
+    const helps = collection.filter(_helps, { username });
     return new Promise(resolve => {
-      setTimeout(() => resolve(_helps), TIMEOUT);
+      setTimeout(() => resolve(helps), TIMEOUT);
     });
   },
 };
