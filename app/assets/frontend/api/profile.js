@@ -1,7 +1,7 @@
 export default [
   {
     id: 1,
-    name: "Bagus",
+    name: "Bagus Trihatmaja",
     avatar: "images/chexee-128.jpg",
     email: "bagus@gmail.com",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",

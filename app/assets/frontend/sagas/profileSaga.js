@@ -5,9 +5,10 @@ import { takeEvery, takeLatest } from 'redux-saga';
 import { take, put, call, fork, select } from 'redux-saga/effects';
 import isEmpty from 'lodash/isEmpty';
 
-function* getBio() {
+function* getBio(action) {
   try {
-    const bio = yield call(api.getBio); 
+    const { id } = action;
+    const bio = yield call(api.getBio, id); 
     yield put(profileActions.getProfileBioSuccess(bio));
   } catch (e) {
     yield put({ type: types.RETRIEVE_PROFILE_BIO_FAILURE, message: e.message });

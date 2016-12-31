@@ -1,12 +1,14 @@
-import _following from './profile';
+import _bio from './profile';
 import _helps from './helps';
 
 const TIMEOUT = 1000;
 
 export const api = {
-  getBio() {
+  getBio(id) {
+    // TODO: Replace this when API is ready.
+    const bio = _bio.filter(b => b.id == id);
     return new Promise(resolve => {
-      setTimeout(() => resolve(_following), TIMEOUT);
+      setTimeout(() => resolve(bio[0]), TIMEOUT);
     });
   },
   getFeeds() {
@@ -14,10 +16,5 @@ export const api = {
       setTimeout(() => resolve(_helps), TIMEOUT);
     });
   },
-  //getStats() {
-    //return new Promise(resolve => {
-      //setTimeout(() => resolve(_stats), TIMEOUT);
-    //});
-  //},
 };
 
