@@ -7,7 +7,7 @@ import * as sidebarIndexTypes from '../constants/sidebarIndexTypes';
 
 function* updateURL(action) {
   const { slug } = action;
-  yield put(push('/dashboard/' + slug));
+  yield put(push('/dashboard/${slug}'));
 }
 
 function* updateSidebar(action) {
@@ -22,7 +22,6 @@ function* updateSidebar(action) {
     default:
       yield put(dashboardActions.pageSwitcher(sidebarIndexTypes.HOME));
   }
-
 }
 
 export function* dashboardMessagesFlow() {
