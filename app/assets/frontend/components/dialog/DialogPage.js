@@ -29,7 +29,11 @@ const DialogPage = () =>
         </p>
       </div>
       <div>
-        <RaisedButton label="Close" fullWidth={true} backgroundColor={lightGreen100} labelColor={lightGreen900} />
+        <RaisedButton 
+          label="Close" 
+          fullWidth 
+          backgroundColor={lightGreen100} 
+          labelColor={lightGreen900} />
       </div>
     </Paper>
   </div>;

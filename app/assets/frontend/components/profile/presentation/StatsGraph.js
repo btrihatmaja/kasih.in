@@ -23,7 +23,7 @@ const StatsGraph = (props) =>
         <Row>
           <Col xs={6} sm={6} md={6} lg={6}>
             <Paper style={style.root} zDepth={1}>
-              <h3 style={{ color: grey500  }}>
+              <h3 style={{ color: grey500 }}>
                 People Helped
               </h3>
               <h2>
@@ -33,7 +33,7 @@ const StatsGraph = (props) =>
           </Col>
           <Col xs={6} sm={6} md={6} lg={6}>        
             <Paper style={style.root} zDepth={1}>
-              <h3 style={{ color: grey500  }}>
+              <h3 style={{ color: grey500 }}>
                 Needs Resolved
               </h3>
               <h2>
