@@ -31,6 +31,32 @@ class ProfilePage extends React.Component {
         padding: "10px",
       },
     };
+    const helpsPosted = {
+      labels: [
+        "January", 
+        "February", 
+        "March", 
+        "April", 
+        "May", 
+        "June", 
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+      datasets: [
+        {
+          label: "Helps posted",
+          fillColor: "rgba(252,233,79,0.5)",
+          strokeColor: "rgba(82,75,25,1)",
+          pointColor: "rgba(166,152,51,1)",
+          pointStrokeColor: "#fff",
+          data: [65, 59, 80, 81, 56, 55, 40, 12, 14, 15, 16, 17],
+          spanGaps: false,
+        },
+      ] };
     return (
       <div>
         <div>
@@ -47,7 +73,7 @@ class ProfilePage extends React.Component {
                   style={styles.tabs}
                 >
                   <Tab label="Overview">
-                    <StatsGraph stats={stats} />
+                    <StatsGraph helpsPosted={helpsPosted} />
                   </Tab>
                   <Tab label="Activity">
                     <FeedsList feeds={feeds} />
