@@ -31,7 +31,7 @@ class ProfilePage extends React.Component {
         padding: "10px",
       },
     };
-    const helpsPosted = {
+    const numberOfPosts = {
       labels: [
         "January", 
         "February", 
@@ -52,11 +52,57 @@ class ProfilePage extends React.Component {
           fillColor: "rgba(252,233,79,0.5)",
           strokeColor: "rgba(82,75,25,1)",
           pointColor: "rgba(166,152,51,1)",
+          pointHoverBackgroundColor: "rgba(252,233,79,1)",
           pointStrokeColor: "#fff",
           data: [65, 59, 80, 81, 56, 55, 40, 12, 14, 15, 16, 17],
           spanGaps: false,
         },
-      ] };
+        {
+          label: "Helps needed",
+          fillColor: "rgba(2,233,79,0.5)",
+          strokeColor: "rgba(21,75,25,1)",
+          pointColor: "rgba(21,152,51,1)",
+          pointStrokeColor: "#fff",
+          pointHoverBackgroundColor: "rgba(2,233,79,1)",
+          data: [21, 20, 40, 21, 16, 45, 20, 2, 14, 19, 26, 1],
+          spanGaps: false,
+        },
+      ],
+    };
+    const categoryOfHelps = [
+      {
+        label: "Foods",
+        value: 30,
+        color: "#F7464A",
+      }, 
+      {
+        label: "Education",
+        value: 50,
+        color: "#E2EAE9",
+      },
+      {
+        label: "Sports",
+        value: 100,
+        color: "#D4CCC5",
+      }, 
+    ];
+    const categoryOfNeeds = [
+      {
+        label: "Foods",
+        value: 10,
+        color: "#F7464A",
+      }, 
+      {
+        label: "Education",
+        value: 5,
+        color: "#E2EAE9",
+      },
+      {
+        label: "Sports",
+        value: 2,
+        color: "#D4CCC5",
+      }, 
+    ];
     return (
       <div>
         <div>
@@ -73,7 +119,10 @@ class ProfilePage extends React.Component {
                   style={styles.tabs}
                 >
                   <Tab label="Overview">
-                    <StatsGraph helpsPosted={helpsPosted} />
+                    <StatsGraph 
+                      helpsPosted={numberOfPosts} 
+                      categoryOfHelps={categoryOfHelps}
+                      categoryOfNeeds={categoryOfNeeds} />
                   </Tab>
                   <Tab label="Activity">
                     <FeedsList feeds={feeds} />
