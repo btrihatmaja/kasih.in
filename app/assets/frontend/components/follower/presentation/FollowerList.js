@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
 import { ListItem } from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
@@ -18,10 +19,12 @@ const iconButtonElement = (
   </IconButton>
 );
 
-const rightIconMenu = (followed) =>
+const rightIconMenu = (followed, username) =>
   <IconMenu iconButtonElement={iconButtonElement}>
     <MenuItem>Message</MenuItem>
-    <MenuItem>View profile</MenuItem>
+    <MenuItem 
+      primaryText="View profile"
+      containerElement={<Link to={`/profile/${username}`} />} />
     {
       followed ? <MenuItem>Unfollow</MenuItem> : <MenuItem>Follow</MenuItem>
     }
@@ -32,7 +35,7 @@ const FollowerList = (props) =>
     primaryText={props.user.name}
     secondaryText={props.user.description}
     leftAvatar={<Avatar src={props.user.avatar} />}
-    rightIconButton={rightIconMenu(props.user.followed)}
+    rightIconButton={rightIconMenu(props.user.followed, props.user.username)}
   />;
 
 FollowerList.propTypes = {

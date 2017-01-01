@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
 import { ListItem } from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
@@ -10,7 +11,7 @@ import MenuItem from 'material-ui/MenuItem';
 
 const iconButtonElement = (
   <IconButton
-    touch={true}
+    touch
     tooltip="more"
     tooltipPosition="bottom-left"
   >
@@ -18,24 +19,25 @@ const iconButtonElement = (
   </IconButton>
 );
 
-const rightIconMenu = (
+const rightIconMenu = (username) =>
   <IconMenu iconButtonElement={iconButtonElement}>
     <MenuItem>Message</MenuItem>
-    <MenuItem>View profile</MenuItem>
+    <MenuItem 
+      primaryText="View profile"
+      containerElement={<Link to={`/profile/${username}`} />} />
     <MenuItem>Unfollow</MenuItem>
-  </IconMenu>
-);
+  </IconMenu>;
 
 const FollowingList = (props) =>
   <ListItem
     primaryText={props.user.name}
     secondaryText={props.user.description}
     leftAvatar={<Avatar src={props.user.avatar} />}
-    rightIconButton={rightIconMenu}
+    rightIconButton={rightIconMenu(props.user.username)}
   />;
 
-  FollowingList.propTypes = {
-    user: PropTypes.object.isRequired,
-  };
+FollowingList.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
-  export default FollowingList;
+export default FollowingList;

@@ -72,7 +72,7 @@ const StatsGraph = (props) =>
 
 StatsGraph.propTypes = {
   helpsPosted: PropTypes.object.isRequired,
-  categoryOfHelps: PropTypes.object.isRequired,
+  categoryOfHelps: PropTypes.array.isRequired,
   categoryOfNeeds: PropTypes.array.isRequired,
 };
 
