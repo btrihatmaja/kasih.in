@@ -54,7 +54,7 @@ class ProfilePage extends React.Component {
           pointColor: "rgba(166,152,51,1)",
           pointHoverBackgroundColor: "rgba(252,233,79,1)",
           pointStrokeColor: "#fff",
-          data: [65, 59, 80, 81, 56, 55, 40, 12, 14, 15, 16, 17],
+          data: stats.stats.helpsPosted,
           spanGaps: false,
         },
         {
@@ -64,45 +64,13 @@ class ProfilePage extends React.Component {
           pointColor: "rgba(21,152,51,1)",
           pointStrokeColor: "#fff",
           pointHoverBackgroundColor: "rgba(2,233,79,1)",
-          data: [21, 20, 40, 21, 16, 45, 20, 2, 14, 19, 26, 1],
+          data: stats.stats.helpsNeeded,
           spanGaps: false,
         },
       ],
     };
-    const categoryOfHelps = [
-      {
-        label: "Foods",
-        value: 30,
-        color: "#F7464A",
-      }, 
-      {
-        label: "Education",
-        value: 50,
-        color: "#E2EAE9",
-      },
-      {
-        label: "Sports",
-        value: 100,
-        color: "#D4CCC5",
-      }, 
-    ];
-    const categoryOfNeeds = [
-      {
-        label: "Foods",
-        value: 10,
-        color: "#F7464A",
-      }, 
-      {
-        label: "Education",
-        value: 5,
-        color: "#E2EAE9",
-      },
-      {
-        label: "Sports",
-        value: 2,
-        color: "#D4CCC5",
-      }, 
-    ];
+    const categoryOfHelps = stats.stats.categoryOfHelps;
+    const categoryOfNeeds = stats.stats.categoryOfNeeds;
     return (
       <div>
         <div>
@@ -120,6 +88,8 @@ class ProfilePage extends React.Component {
                 >
                   <Tab label="Overview">
                     <StatsGraph 
+                      peopleHelped={stats.stats.peopleHelped}
+                      needsResolved={stats.stats.needsResolved}
                       helpsPosted={numberOfPosts} 
                       categoryOfHelps={categoryOfHelps}
                       categoryOfNeeds={categoryOfNeeds} />

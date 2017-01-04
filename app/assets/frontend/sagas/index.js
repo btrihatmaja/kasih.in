@@ -12,7 +12,9 @@ import { retrieveFollowingFlow } from './followingSaga';
 import { retrieveFollowerFlow } from './followerSaga';
 import {
   profileBioFlow,
-  profileFeedsFlow } from './profileSaga';
+  profileFeedsFlow,
+  profileStatsFlow,
+} from './profileSaga';
 
 export default function* root() {
   yield [
@@ -30,5 +32,6 @@ export default function* root() {
     fork(updateSidebarFromURL),
     fork(profileBioFlow),
     fork(profileFeedsFlow),
+    fork(profileStatsFlow),
   ];
 }

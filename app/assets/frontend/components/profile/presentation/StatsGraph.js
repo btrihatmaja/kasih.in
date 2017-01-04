@@ -27,7 +27,7 @@ const StatsGraph = (props) =>
                 People Helped
               </h3>
               <h2>
-                100
+                {props.peopleHelped}
               </h2>
             </Paper>
           </Col>
@@ -37,7 +37,7 @@ const StatsGraph = (props) =>
                 Needs Resolved
               </h3>
               <h2>
-                50
+                {props.needsResolved}
               </h2>
             </Paper>
           </Col>
@@ -48,7 +48,7 @@ const StatsGraph = (props) =>
       <h2>
         Posts
       </h2>
-      <LineChart data={props.helpsPosted} width="600" height="250" />
+      <LineChart data={props.helpsPosted} width="600" height="250" redraw />
     </div>
     <div>
       <Grid fluid>
@@ -71,6 +71,8 @@ const StatsGraph = (props) =>
   </div>;
 
 StatsGraph.propTypes = {
+  peopleHelped: PropTypes.number.isRequired,
+  needsResolved: PropTypes.number.isRequired,
   helpsPosted: PropTypes.object.isRequired,
   categoryOfHelps: PropTypes.array.isRequired,
   categoryOfNeeds: PropTypes.array.isRequired,

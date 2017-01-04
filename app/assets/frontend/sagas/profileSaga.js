@@ -24,10 +24,24 @@ function* getFeeds(action) {
   }
 }
 
+function* getStats(action) {
+  try {
+    const { username } = action;
+    const stats = yield call (api.getStats, username);
+    yield put(profileActions.getProfileStatsSuccess(stats));
+  } catch (e) {
+    yield put({ type: types.RETRIEVE_PROFILE_STATS_FAILURE, message: e.message });
+  }
+}
+
 export function* profileBioFlow() {
   yield takeLatest(types.RETRIEVE_PROFILE_BIO_REQUEST, getBio);
 }
 
 export function* profileFeedsFlow() {
   yield takeLatest(types.RETRIEVE_PROFILE_FEEDS_REQUEST, getFeeds);
+}
+
+export function* profileStatsFlow() {
+  yield takeLatest(types.RETRIEVE_PROFILE_STATS_REQUEST, getStats);
 }

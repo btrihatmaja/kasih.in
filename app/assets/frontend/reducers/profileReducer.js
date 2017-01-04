@@ -2,7 +2,14 @@ import * as types from '../constants/actionTypes';
 
 export default function profileReducer(state = {
   bio: { isFetching: false, bio: {} },
-  stats: { isFetching: false, stats: {} },
+  stats: { isFetching: false, stats: { 
+    peopleHelped: 0, 
+    needsResolved: 0,
+    helpsPosted: [],
+    helpsNeeded: [],
+    categoryOfHelps: [],
+    categoryOfNeeds: [],
+  } },
   feeds: { isFetching: false, feeds: [] },
 }, action) {
   switch (action.type) {
