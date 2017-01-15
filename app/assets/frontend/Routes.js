@@ -11,6 +11,7 @@ import HelpPage from './components/help/HelpPage';
 import LoginPage from './components/users/LoginPage';
 import MessagesPage from './components/messages/MessagesPage';
 import ProfilePage from './components/profile/ProfilePage';
+import EditProfilePage from './components/profile/EditProfilePage';
 import HelpForm from './components/common/help/HelpForm';
 import { changeDashboardTab, changeDashboardSidebar } from './actions/dashboardActions';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -31,6 +32,7 @@ const Routes = (props) => {
           <Route path="about" component={AboutPage} />
           <Route path="login" component={LoginPage} />
           <Route path="profile/:username" component={ProfilePage} />
+          <Route path="settings/profile" component={EditProfilePage} />
           <Route path="dashboard" component={DashboardPage}>
             <Route 
               path="home" 
